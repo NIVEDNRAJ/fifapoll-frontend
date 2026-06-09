@@ -31,19 +31,25 @@ import { Setting } from '../../core/models/api.models';
           {{ statusText() }}
         </div>
 
-        <div style="display: flex; gap: 16px; margin-top: 16px;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
           <ng-container *ngIf="authService.isAuthenticated(); else authButtons">
-            <button mat-raised-button color="accent" class="bg-gold" routerLink="/dashboard" style="padding: 12px 24px; font-size: 1.1rem; font-family: 'Outfit'; font-weight: bold;">
-              Go to Dashboard <mat-icon>arrow_forward</mat-icon>
-            </button>
+            <a routerLink="/dashboard" style="text-decoration: none;">
+              <button style="background-color: #fbbf24; color: #062214; border: none; padding: 12px 28px; font-size: 1.05rem; font-family: 'Outfit'; font-weight: bold; border-radius: 30px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                Go to Dashboard <mat-icon style="font-size: 20px; width: 20px; height: 20px;">arrow_forward</mat-icon>
+              </button>
+            </a>
           </ng-container>
           <ng-template #authButtons>
-            <button mat-raised-button color="accent" class="bg-gold" routerLink="/login" style="padding: 12px 24px; font-size: 1.1rem; font-family: 'Outfit'; font-weight: bold;">
-              Sign In to Vote
-            </button>
-            <button mat-outlined-button routerLink="/register" style="color: white; border-color: white; padding: 12px 24px; font-size: 1.1rem; font-family: 'Outfit';">
-              Create Account
-            </button>
+            <a routerLink="/login" style="text-decoration: none;">
+              <button style="background-color: #fbbf24; color: #062214; border: none; padding: 12px 28px; font-size: 1.05rem; font-family: 'Outfit'; font-weight: 700; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                Sign In to Vote
+              </button>
+            </a>
+            <a routerLink="/register" style="text-decoration: none;">
+              <button style="background-color: transparent; color: white; border: 2px solid white; padding: 10px 26px; font-size: 1.05rem; font-family: 'Outfit'; font-weight: 700; border-radius: 30px; cursor: pointer;">
+                Create Account
+              </button>
+            </a>
           </ng-template>
         </div>
       </section>
