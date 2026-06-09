@@ -1,0 +1,116 @@
+<mat-sidenav-container class="app-container" style="min-height: 100vh;">
+  <!-- Sidenav for mobile -->
+  <mat-sidenav mode="over" [opened]="isMobileNavOpen()" (closedStart)="isMobileNavOpen.set(false)" style="width: 250px;">
+    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;" [class.pitch-gradient]="isDarkTheme()" style="padding: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+          <mat-icon class="gold-accent">sports_soccer</mat-icon>
+          <span style="font-size: 1.2rem; font-weight: bold; font-family: 'Outfit';">FIFA Polls</span>
+        </div>
+        <mat-nav-list>
+          <!-- Public links -->
+          <ng-container *ngIf="!authService.isAuthenticated()">
+            <a mat-list-item routerLink="/landing" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Home</a>
+            <a mat-list-item routerLink="/login" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Login</a>
+            <a mat-list-item routerLink="/register" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Register</a>
+          </ng-container>
+
+          <!-- User links -->
+          <ng-container *ngIf="authService.isAuthenticated()">
+            <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Dashboard</a>
+            <a mat-list-item routerLink="/teams" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Teams & Voting</a>
+            <a mat-list-item routerLink="/my-vote" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">My Vote</a>
+            <a mat-list-item routerLink="/results" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Results</a>
+          </ng-container>
+
+          <!-- Admin links -->
+          <ng-container *ngIf="authService.isAuthenticated() && authService.isAdmin()">
+            <hr style="border-color: #374151; margin: 16px 0;">
+            <div style="font-size: 0.8rem; font-weight: bold; text-transform: uppercase; color: #9ca3af; padding-left: 16px; margin-bottom: 8px;">Admin Panel</div>
+            <a mat-list-item routerLink="/admin-dashboard" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Stats Dashboard</a>
+            <a mat-list-item routerLink="/admin-teams" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Manage Teams</a>
+            <a mat-list-item routerLink="/admin-votes" routerLinkActive="active-link" (click)="isMobileNavOpen.set(false)">Voters & Audit</a>
+          </ng-container>
+        </mat-nav-list>
+      </div>
+
+      <div *ngIf="authService.isAuthenticated()" style="margin-top: auto;">
+        <button mat-flat-button color="warn" style="width: 100%;" (click)="logout()">
+          <mat-icon>logout</mat-icon> Logout
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content style="display: flex; flex-direction: column; height: 100vh;">
+    <!-- Navigation Header -->
+    <mat-toolbar class="nav-header" style="position: sticky; top: 0; z-index: 1000; height: 64px; display: flex; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button mat-icon-button (click)="toggleMobileNav()" class="mobile-only-btn" style="display: none;">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" routerLink="/landing">
+          <mat-icon class="gold-accent" style="font-size: 28px; width: 28px; height: 28px;">sports_soccer</mat-icon>
+          <h1 id="app-title" style="margin: 0; font-family: 'Outfit'; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">FIFA <span class="gold-accent">POLLS</span></h1>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="desktop-only-nav" style="display: flex; align-items: center; gap: 16px;">
+        <!-- Public Links -->
+        <ng-container *ngIf="!authService.isAuthenticated()">
+          <a mat-button routerLink="/landing" routerLinkActive="active-link">Home</a>
+          <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
+          <a mat-raised-button color="primary" routerLink="/register" routerLinkActive="active-link">Register</a>
+        </ng-container>
+
+        <!-- Authenticated Links -->
+        <ng-container *ngIf="authService.isAuthenticated()">
+          <a mat-button routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+          <a mat-button routerLink="/teams" routerLinkActive="active-link">Teams</a>
+          <a mat-button routerLink="/my-vote" routerLinkActive="active-link">My Vote</a>
+          <a mat-button routerLink="/results" routerLinkActive="active-link">Results</a>
+
+          <!-- Admin Portal Trigger -->
+          <ng-container *ngIf="authService.isAdmin()">
+            <button mat-button [matMenuTriggerFor]="adminMenu" class="admin-portal-btn">
+              Admin Portal <mat-icon>expand_more</mat-icon>
+            </button>
+            <mat-menu #adminMenu="matMenu">
+              <a mat-menu-item routerLink="/admin-dashboard">Stats Dashboard</a>
+              <a mat-menu-item routerLink="/admin-teams">Manage Teams</a>
+              <a mat-menu-item routerLink="/admin-votes">Voters & Audit</a>
+            </mat-menu>
+          </ng-container>
+
+          <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.8; margin-left: 8px; border-left: 1px solid rgba(128,128,128,0.3); padding-left: 16px;">
+            Hi, {{ authService.currentUser()?.name }}
+          </span>
+          <button mat-icon-button color="warn" (click)="logout()" title="Logout">
+            <mat-icon>logout</mat-icon>
+          </button>
+        </ng-container>
+
+        <!-- Theme Toggle -->
+        <button mat-icon-button (click)="toggleTheme()" [title]="isDarkTheme() ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
+          <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+      </div>
+
+      <!-- Mobile Right Controls -->
+      <div class="mobile-only-controls" style="display: none; align-items: center; gap: 8px;">
+        <button mat-icon-button (click)="toggleTheme()">
+          <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+
+    <!-- Main Dynamic Content Wrapper -->
+    <main style="flex: 1; overflow-y: auto; display: flex; flex-direction: column;">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Menu import support if needed, but since it's a Menu from Angular Material we need to import MatMenuModule -->

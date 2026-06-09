@@ -1,0 +1,109 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --primary-color: #0f5132;
+  --secondary-color: #198754;
+  --accent-color: #ffc107;
+  --dark-bg: #0b0f19;
+  --dark-surface: #111827;
+  --dark-card: #1f2937;
+  --light-bg: #f3f4f6;
+  --light-surface: #ffffff;
+  --light-card: #ffffff;
+  --text-dark: #1f2937;
+  --text-light: #f9fafb;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', Roboto, "Helvetica Neue", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-theme {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+
+  .app-container {
+    background-color: var(--dark-bg);
+  }
+
+  .nav-header {
+    background-color: var(--dark-surface);
+    border-bottom: 1px solid #374151;
+  }
+
+  .mat-mdc-card {
+    background-color: var(--dark-card) !important;
+    color: var(--text-light) !important;
+  }
+
+  .mat-mdc-dialog-container {
+    --mdc-dialog-container-color: var(--dark-surface);
+  }
+}
+
+body.light-theme {
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+
+  .app-container {
+    background-color: var(--light-bg);
+  }
+
+  .nav-header {
+    background-color: var(--light-surface);
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .mat-mdc-card {
+    background-color: var(--light-card) !important;
+    color: var(--text-dark) !important;
+  }
+}
+
+/* Custom styles */
+.pitch-gradient {
+  background: linear-gradient(135deg, #0f5132 0%, #062214 100%);
+}
+
+.gold-accent {
+  color: var(--accent-color) !important;
+}
+
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.skeleton-box {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: loading-animation 1.5s infinite;
+  border-radius: 4px;
+}
+
+body.dark-theme .skeleton-box {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes loading-animation {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.text-gold {
+  color: #fbbf24;
+}
+
+.bg-gold {
+  background-color: #fbbf24;
+  color: #000000;
+}
