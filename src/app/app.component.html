@@ -1,7 +1,7 @@
 <mat-sidenav-container class="app-container" style="min-height: 100vh;">
   <!-- Sidenav for mobile -->
   <mat-sidenav mode="over" [opened]="isMobileNavOpen()" (closedStart)="isMobileNavOpen.set(false)" style="width: 250px;">
-    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;" [class.pitch-gradient]="isDarkTheme()" style="padding: 16px;">
+    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 16px;">
       <div>
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
           <mat-icon class="gold-accent">sports_soccer</mat-icon>
@@ -92,18 +92,8 @@
           </button>
         </ng-container>
 
-        <!-- Theme Toggle -->
-        <button mat-icon-button (click)="toggleTheme()" [title]="isDarkTheme() ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
-          <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-        </button>
       </div>
 
-      <!-- Mobile Right Controls -->
-      <div class="mobile-only-controls" style="display: none; align-items: center; gap: 8px;">
-        <button mat-icon-button (click)="toggleTheme()">
-          <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-        </button>
-      </div>
     </mat-toolbar>
 
     <!-- Main Dynamic Content Wrapper -->
