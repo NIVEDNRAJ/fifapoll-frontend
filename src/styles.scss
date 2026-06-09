@@ -20,28 +20,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.dark-theme {
-  background-color: var(--dark-bg);
-  color: var(--text-light);
-
-  .app-container {
-    background-color: var(--dark-bg);
-  }
-
-  .nav-header {
-    background-color: var(--dark-surface);
-    border-bottom: 1px solid #374151;
-  }
-
-  .mat-mdc-card {
-    background-color: var(--dark-card) !important;
-    color: var(--text-light) !important;
-  }
-
-  .mat-mdc-dialog-container {
-    --mdc-dialog-container-color: var(--dark-surface);
-  }
-}
 
 body.light-theme {
   background-color: var(--light-bg);
@@ -89,10 +67,6 @@ body.light-theme {
   border-radius: 4px;
 }
 
-body.dark-theme .skeleton-box {
-  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
-  background-size: 200% 100%;
-}
 
 @keyframes loading-animation {
   0% { background-position: 200% 0; }
